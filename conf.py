@@ -7,6 +7,7 @@ rst_epilog = """
 
 .. _Community forum: https://community.lsst.org
 .. _Squareone: https://squareone.lsst.io
+.. _Apollo React Client: https://www.apollographql.com/docs/react/
 """
 
 html_css_files = [

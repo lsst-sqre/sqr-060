@@ -36,6 +36,30 @@ Instead, messages about things like maintenance events need to be served to user
 This use case implies the need for a small web service, embedded in the |RSP| deployment, that can serve messages for display on |RSP| user interfaces.
 This service is Semaphore.
 
+.. _stack:
+
+Technical stack
+===============
+
+Semaphore, with respect to the initial use case of broadcast messaging, consists of these technical components:
+
+- GitHub repository serving as a content management system
+- Semaphore service layer, providing an API
+- UI components embedded in Squareone_, and possibly other |RSP| applications, to consume the Semaphore API and display messages to the user
+
+GitHub makes sense as a CMS because it provides both a user interface and an authorization system (including pull request reviews) that the team is already familiar with.
+Further, the cadence of broadcast messages is slow enough that a GitHub-based process of committing a content change and merging a pull request is reasonably efficient.
+We anticipate that a GitHub repository could be dedicated to |RSP| broadcast messages (or the Phalanx deployment repository could be co-opted for broadcast messages).
+Messages are individual files in a plain text format that supports metadata.
+Two possible formats are YAML or Markdown with YAML-formatted front-matter (the latter option makes it easier for authors to write and format body content).
+Later sections of this document develop the data model for these message files.
+
+Semaphore is implemented as a FastAPI application that runs within each |RSP| environment.
+With respect to the global broadcast use-case, Semaphore consumes the GitHub content repository, sorts messages based on environmental tags or timing factors encoded in the message's metadata, and provides those messages through a web API to clients such as the Squareone_ homepage, Notebook Aspect, or Portal Aspect.
+The default API format is REST, though we believe that a GraphQL API that implements a subscription query would be the easiest for client applications to consume and provide a real-time experience to users.
+
+React-based client web applications consume the Semaphore GraphQL using the `Apollo React Client`_.
+
 References
 ==========
 
