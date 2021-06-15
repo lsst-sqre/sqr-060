@@ -60,6 +60,32 @@ The default API format is REST, though we believe that a GraphQL API that implem
 
 React-based client web applications consume the Semaphore GraphQL using the `Apollo React Client`_.
 
+.. _ui:
+
+User interface design considerations
+====================================
+
+How messages are displayed to users drives the design of the message data model.
+
+The most basic visual presentation of a broadcast message is as a banner across the Squareone_ page.
+The most important part of this banner is the summary sentence: a quickly-digestible message.
+Making the default message presentation be a summary sentence also ensures that broadcast messages can fit into a variety of user interfaces, such as the JupyterLab status bar, without disrupting the overall user experience of that application.
+
+Some message may require more explanation, including paragraphs, lists, links, and so on.
+This user interface can accommodate this information by including a disclosure affordance on the banner that either opens a modal with the message body, or expands the banner to reveal the message body.
+Both of these approaches avoid taking the user away from the UI (and thus the work) that they are currently doing.
+On a technical level, this message body is written as markdown, providing the authors all the tools needed to link elsewhere or provide a formatted message.
+
+All broadcast messages are time-sensitive, on some level, and both the visual presentation and message data model need to be built around that.
+First, "old" broadcast messages should never be shown.
+Thus all messages should have expiration dates encoded in their metadata.
+Second, a message may be not yet relevant; thus messages should be able to provide defer dates that schedule their appearance.
+Both of these considerations ensure that broadcast messages are relevant to users.
+
+A common use-case for broadcast-style messages is to pre-announce an event.
+Messages should provide an event date in a structured format so that the client can display the date and time in the user's timezone, and also so that this date information can be displayed both prominently and consistently alongside the message's summary.
+For events that are about to happen imminently, the client could also opt to display this event timestamp as a countdown clock (for example, 10 minutes until maintenance).
+
 References
 ==========
 
