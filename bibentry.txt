@@ -1,0 +1,9 @@
+% bibentry template for lsst.bib in https://github.com/lsst/lsst-texmf/blob/master/texmf/bibtex/bib/lsst.bib
+
+@DocuShare{SQR-060,
+   author = { Jonathan Sick },
+    title = {Design of the Semaphore user broadcast message system for the Rubin Science Platform},
+     year = 2021,
+    month = Jun,
+   handle = {SQR-060},
+      url = {https://sqr-060.lsst.io } }
