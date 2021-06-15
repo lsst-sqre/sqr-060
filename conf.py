@@ -8,6 +8,7 @@ rst_epilog = """
 .. _Community forum: https://community.lsst.org
 .. _Squareone: https://squareone.lsst.io
 .. _Apollo React Client: https://www.apollographql.com/docs/react/
+.. _Cron: https://en.wikipedia.org/wiki/Cron
 """
 
 html_css_files = [

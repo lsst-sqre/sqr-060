@@ -86,6 +86,105 @@ A common use-case for broadcast-style messages is to pre-announce an event.
 Messages should provide an event date in a structured format so that the client can display the date and time in the user's timezone, and also so that this date information can be displayed both prominently and consistently alongside the message's summary.
 For events that are about to happen imminently, the client could also opt to display this event timestamp as a countdown clock (for example, 10 minutes until maintenance).
 
+.. _data-model:
+
+Message data model
+==================
+
+This section describes the data model for messages.
+As discussed in :ref:`stack`, each message is a plain-text file committed into a GitHub repository.
+
+Basic message
+-------------
+
+A basic message is a markdown file with YAML front-matter.
+The ``summary`` field is the text that is shown persistently in the message banner.
+The optional message body can be shown when a user clicks on a message to view additional information.
+The body is formatted in markdown so that the author can format the message with links, code literals and blocks, lists.
+
+.. code-block:: text
+
+   ---
+   summary: The plain-text broadcast message.
+   ---
+
+   The extended message body, shown *only* when the user
+   interacts with the message, and formatted as markdown.
+
+Tagging a science platform environment
+--------------------------------------
+
+Some messages should only in a single |RSP| environment, or a select group of environments.
+These environments can be specified as a comma-separated list of Phalanx environment names.
+The Semaphore service is configured with the environment it runs it, so only messages that are untagged, or tagged with that environment name are broadcast within that environment:
+
+.. code-block:: text
+
+   ---
+   summary: The plain-text broadcast message.
+   env: idfprod,base
+   ---
+
+   The extended message body, shown *only* when the user
+   interacts with the message, and formatted as markdown.
+
+Deferring and expiring a message
+--------------------------------
+
+This example features the ``defer`` and ``expire`` fields:
+
+.. code-block:: text
+
+   ---
+   summary: The plain-text broadcast message.
+   env: idfprod
+   defer: 2021-01-01:00:00:00
+   expire: 2021-01-02:00:00:00
+   ---
+
+   The extended message body, shown *only* when the user
+   interacts with the message, and formatted as markdown.
+   
+The ``defer`` field is an ISO 8601 timestamp when the message becomes available, while ``expire`` specified when the message is no longer available.
+This feature allows message authors to pre-schedule a message without having to interact with the GitHub repository in real-time.
+
+An additional, and alternative approach, is to replace the ``expire`` field with a ``ttl`` field, which is a duration for the message to be broadcast *after* the ``defer`` timestamp:
+
+.. code-block:: text
+
+   ---
+   summary: The plain-text broadcast message.
+   env: idfprod
+   defer: 2021-01-01:00:00:00
+   ttl: 2h
+   ---
+
+   The extended message body, shown *only* when the user
+   interacts with the message, and formatted as markdown.
+
+Repeating messages
+------------------
+
+Some messages may need to repeat.
+A common use case is a weekly system maintenance window.
+Cron_ is likely the best syntax for describing periodic events.
+This this scenario, ``cron`` would replace the ``defer`` field, and ``ttl`` would express the duration a message is broadcast after each cron event:
+
+.. code-block:: text
+
+   ---
+   summary: The plain-text broadcast message.
+   env: idfprod
+   cron: 0 13 * * THU
+   timezone: -7:00
+   ttl: 2h
+   ---
+
+   The extended message body, shown *only* when the user
+   interacts with the message, and formatted as markdown.
+
+This example also demonstrates the application of a ``timezone`` field that provides time zone context to the ``cron`` field (potentially the ``timezone`` field could also augment the ``defer`` and ``expire`` fields if they do not have an explicit timezone).
+
 References
 ==========
 
