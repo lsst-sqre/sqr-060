@@ -1,0 +1,18 @@
+.rst-content li,
+.rst-content ul {
+  list-style: disc;
+}
+
+.rst-content li {
+  margin-left: 0;
+}
+
+.rst-content li p {
+  margin-bottom: 0;
+}
+
+.rst-content ul,
+.rst-content ol {
+  margin-bottom: 1rem;
+  margin-left: 0;
+}
