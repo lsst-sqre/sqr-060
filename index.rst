@@ -1,14 +1,13 @@
-:tocdepth: 1
+####################################################################################
+Design of the Semaphore user broadcast message system for the Rubin Science Platform
+####################################################################################
 
-.. sectnum::
+.. abstract::
 
-Summary
-=======
-
-Semaphore is a service that provides user messaging services for Rubin Science Platform (RSP).
-The initial launch of Semaphore focuses on broadcast-type messages that are shown to all RSP users.
-This system leverages GitHub as a content management system in conjunction with the Sempahore API service itself and client-facing UIs that are embedded in applications such as Squareone_ (the science platform homepage).
-This technical note describes the data model and functionality of Semaphore broadcast messaging.
+   Semaphore is a service that provides user messaging services for Rubin Science Platform (RSP).
+   The initial launch of Semaphore focuses on broadcast-type messages that are shown to all RSP users.
+   This system leverages GitHub as a content management system in conjunction with the Sempahore API service itself and client-facing UIs that are embedded in applications such as Squareone_ (the science platform homepage).
+   This technical note describes the data model and functionality of Semaphore broadcast messaging.
 
 .. _intro:
 
@@ -149,7 +148,7 @@ This example features the ``defer`` and ``expire`` fields:
 
    The extended message body, shown *only* when the user
    interacts with the message, and formatted as markdown.
-   
+
 The ``defer`` field is the time when the message becomes available, while ``expire`` specifies when the message is no longer available (see also :ref:`message-ttl`).
 This feature allows message authors to pre-schedule a message without having to interact with the GitHub repository in real-time.
 See :ref:`human-dates` for the formatting of these timestamps.
@@ -228,3 +227,14 @@ References
 ==========
 
 .. bibliography::
+
+
+.. |RSP| replace:: Rubin Science Platform
+.. |DP01| replace:: :abbr:`DP0.1 (Data Preview 0.1)`
+
+.. _Community forum: https://community.lsst.org
+.. _Squareone: https://squareone.lsst.io
+.. _Apollo React Client: https://www.apollographql.com/docs/react/
+.. _Cron: https://en.wikipedia.org/wiki/Cron
+.. _pycron: https://github.com/kipe/pycron
+.. _arrow: https://arrow.readthedocs.io/en/latest/
