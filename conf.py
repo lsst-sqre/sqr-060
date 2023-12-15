@@ -1,18 +1,4 @@
-from documenteer.conf.technote import *
+# See the Documenteer docs for how to customize conf.py:
+# https://documenteer.lsst.io/technotes/
 
-rst_epilog = """
-
-.. |RSP| replace:: Rubin Science Platform
-.. |DP01| replace:: :abbr:`DP0.1 (Data Preview 0.1)`
-
-.. _Community forum: https://community.lsst.org
-.. _Squareone: https://squareone.lsst.io
-.. _Apollo React Client: https://www.apollographql.com/docs/react/
-.. _Cron: https://en.wikipedia.org/wiki/Cron
-.. _pycron: https://github.com/kipe/pycron
-.. _arrow: https://arrow.readthedocs.io/en/latest/
-"""
-
-html_css_files = [
-    'custom.css',
-]
+from documenteer.conf.technote import *  # noqa F401 F403
